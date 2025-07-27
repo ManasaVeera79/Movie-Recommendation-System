@@ -9,7 +9,6 @@ This is a **Content-Based Movie Recommendation System** built using a dataset of
 -  **Genre filtering** to tailor results to a specific genre
 -  **Vote rating filter** to limit results to higher-rated movies
 -  Interactive web interface using **Streamlit**
--  Displays movie posters *(if API integrated)*
 
 ##  Dataset
 
