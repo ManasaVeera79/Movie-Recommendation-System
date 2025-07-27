@@ -24,7 +24,7 @@ movies_cleaned_df['genre_names'] = movies_cleaned_df['genres'].apply(extract_gen
 # Mapping of movie title to index
 indices = pd.Series(movies_cleaned_df.index, index=movies_cleaned_df['original_title'])
 
-# 🎯 Recommendation function
+# Recommendation function
 def recommend(title, filtered_df=None):
     title = title.lower().strip()
     if title not in indices:
@@ -46,10 +46,10 @@ def recommend(title, filtered_df=None):
 
     return recommended_titles
 
-# 🌟 Streamlit UI
+#  Streamlit UI
 st.title(" Movie Recommendation App")
 
-# 📌 Sidebar filters
+#  Sidebar filters
 st.sidebar.markdown(" **Additional Filters**")
 
 # Genre Filter
@@ -65,7 +65,7 @@ max_rating = float(movies_cleaned_df['vote_average'].max())
 vote_count_range = st.sidebar.slider("Minimum Vote Count", min_value=min_votes, max_value=max_votes, value=(500, 10000))
 rating_range = st.sidebar.slider("Rating Range", min_value=min_rating, max_value=max_rating, value=(6.0, 9.0))
 
-# 🎛️ Filter DataFrame
+# Filter DataFrame
 filtered_movies = movies_cleaned_df[
     (movies_cleaned_df['vote_count'] >= vote_count_range[0]) &
     (movies_cleaned_df['vote_count'] <= vote_count_range[1]) &
@@ -77,10 +77,10 @@ filtered_movies = movies_cleaned_df[
 if selected_genres:
     filtered_movies = filtered_movies[filtered_movies['genre_names'].apply(lambda x: any(g in x for g in selected_genres))]
 
-# 🔍 Movie Input
+# Movie Input
 movie_name = st.text_input("Enter a movie name:")
 
-# 🔁 Get Recommendations
+# Get Recommendations
 if st.button("Get Recommendations"):
     if movie_name:
         recommendations = recommend(movie_name, filtered_df=filtered_movies)
@@ -93,7 +93,7 @@ if st.button("Get Recommendations"):
     else:
         st.warning(" Please enter a movie title.")
 
-# 🎯 Show Top Movies Based on Filters
+# Show Top Movies Based on Filters
 st.subheader(" Top Recommended Movies (Filtered):")
 
 # Sort by weighted score if exists, else by rating
@@ -103,4 +103,4 @@ else:
     top_movies = filtered_movies.sort_values("vote_average", ascending=False).head(10)
 
 for _, row in top_movies.iterrows():
-    st.write(f"🎬 {row['original_title'].title()} — ⭐ {row['vote_average']} (Votes: {row['vote_count']})")
+    st.write(f" {row['original_title'].title()} — ⭐ {row['vote_average']} (Votes: {row['vote_count']})")
